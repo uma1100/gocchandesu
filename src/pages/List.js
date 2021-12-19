@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import ReactModal from 'react-modal';
 import { FaLink } from 'react-icons/fa'
 import Modal from "react-modal";
@@ -130,7 +130,7 @@ export default class List extends React.Component {
       }.bind(this), 3000)
     }
     let userData = [];
-    this.state.user_data.map((item) => {
+    this.state.user_data.map((item,index) => {
       const elm = (
         <div className="bg-white rounded py-5 mx-4 pl-6 flex items-start shadow">
           <div className="pl-3 pr-10 mt-1">
