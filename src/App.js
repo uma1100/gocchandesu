@@ -10,9 +10,11 @@ export default class App extends React.Component {
     user_name: "主催者はじめ",
     role: "平社員",
     age: 25,
-    gender: "男性"
+    gender: "男性",
+    total: 50000,
   };
   saveUserGroup() {
+    console.log(this.state)
     return axios
       .post("https://gocchandesu-back.azurewebsites.net/api/CreateGroup", {
         group_name: this.state.group_name,
@@ -22,6 +24,7 @@ export default class App extends React.Component {
         role: this.state.role,
         age: this.state.age,
         gender: this.state.gender,
+        total: this.state.total,
       })
       .then((res) => {
         console.log(res)
@@ -36,6 +39,14 @@ export default class App extends React.Component {
     console.log(event.target.value)
   }
   render() {
+    let listNum = []
+    for (let i = 3; i <= 30; i++) {
+      listNum.push(<option value={i}>{i}</option>)
+    }
+    let listAge = []
+    for (let i = 20; i <= 60; i++) {
+      listAge.push(<option value={i}>{i}</option>)
+    }
     return (
       <div>
         <div className="bg-gray-50 pb-10">
@@ -60,9 +71,7 @@ export default class App extends React.Component {
                 value={this.state.num}
                 onChange={this.handleChangeNum}
               >
-                <option>3人</option>
-                <option>4人</option>
-                <option>5人</option>
+                {listNum}
               </select>
               <label class="block mt-3 uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
                 あなたの役職を教えて下さい
@@ -76,9 +85,7 @@ export default class App extends React.Component {
                 何歳ですか？
               </label>
               <select class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
-                <option>19</option>
-                <option>20</option>
-                <option>21</option>
+                {listAge}
               </select>
             </div>
           </div>
