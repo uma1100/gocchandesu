@@ -1,7 +1,6 @@
 import React from "react";
 import { Outlet, Link } from "react-router-dom";
 import axios from "axios";
-import thisNumberValue from "es-abstract/2015/thisNumberValue";
 
 export default class App extends React.Component {
   state = {

@@ -2,7 +2,6 @@ import React from "react";
 import ReactModal from 'react-modal';
 import { FaLink } from 'react-icons/fa'
 import Modal from "react-modal";
-import JoinForm from '../components/JoinForm'
 import axios from "axios";
 
 Modal.setAppElement("#root");
@@ -24,6 +23,10 @@ export default class List extends React.Component {
 
     this.handleOpenModal = this.handleOpenModal.bind(this);
     this.handleCloseModal = this.handleCloseModal.bind(this);
+  }
+
+  comma(num) {
+    return String(num).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
   }
 
   getParam(name, url) {
@@ -140,7 +143,7 @@ export default class List extends React.Component {
         </h2>
         <h2 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl text-center my-4">
           <span className="block">🍺{this.state.group_data.name}🎉</span>
-          <span className="block text-lg">予算：{this.state.group_data.total}</span>
+          <span className="block text-lg">予算：{this.comma(this.state.group_data.total)}円</span>
         </h2>
         <div className="w-full grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
           {userData}
