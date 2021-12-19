@@ -2,13 +2,11 @@
   "routes": [
     {
       "route": "/",
-      "serve": "/index.html",
-      "statusCode": 200
+      "rewrite": "/index.html"
     },
     {
       "route": "/list",
-      "serve": "/index.html",
-      "statusCode": 200
+      "rewrite": "/index.html"
     }
   ],
   "defaultHeaders": {
