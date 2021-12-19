@@ -34,7 +34,7 @@ export default class List extends React.Component {
 
   getParam(name, url) {
     if (!url) url = window.location.href;
-    name = name.replace(/[\[\]]/g, "\\$&");
+    name = name.replace(/[[\]]/g, "\\$&");
     var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
       results = regex.exec(url);
     if (!results) return null;
@@ -80,8 +80,29 @@ export default class List extends React.Component {
         let total_point = 0
         res.data.map((item) => {
           total_point += item.point
+          return true;
         })
         this.setState({ total_point: total_point })
+        let userData = []
+        res.data.map((item,index) => {
+          const elm = (
+            <div className="bg-white rounded py-5 mx-4 pl-6 flex items-start shadow">
+              <div className="pl-3 pr-10 mt-1">
+                <h3 className="font-normal leading-4 text-gray-800 text-base">{item.name}</h3>
+                <div className="flex items-end mt-4">
+                  <h2 className="text-gray-800 text-2xl leading-normal font-bold">{this.comma(Math.round(this.state.group_data.total * (item.point / total_point)))}円</h2>
+                </div>
+                <div className="flex mt-2 ">
+                  <button className="text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
+                    送金する
+                  </button>
+                </div>
+              </div>
+            </div>
+          )
+          userData.push(elm)
+          return true;
+        })
       })
   }
 
@@ -147,6 +168,7 @@ export default class List extends React.Component {
         </div>
       )
       userData.push(elm)
+      return true;
     })
     return (
       <div>
