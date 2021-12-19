@@ -84,7 +84,7 @@ export default class List extends React.Component {
         })
         this.setState({ total_point: total_point })
         let userData = []
-        res.data.map((item,index) => {
+        res.data.map((item, index) => {
           const elm = (
             <div className="bg-white rounded py-5 mx-4 pl-6 flex items-start shadow">
               <div className="pl-3 pr-10 mt-1">
@@ -151,7 +151,7 @@ export default class List extends React.Component {
       }.bind(this), 3000)
     }
     let userData = [];
-    this.state.user_data.map((item,index) => {
+    this.state.user_data.map((item, index) => {
       const elm = (
         <div className="bg-white rounded py-5 mx-4 pl-6 flex items-start shadow">
           <div className="pl-3 pr-10 mt-1">
@@ -237,7 +237,12 @@ export default class List extends React.Component {
                   <option>女性</option>
                   <option>無回答</option>
                 </select>
+                <label class="block mt-3 uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="formFileLg">
+                  顔写真を送ってください
+                </label>
+                <input class="form-control block w-full px-2 py-1.5 font-normal" id="formFileLg" type="file"></input>
               </div>
+
               <div className="text-center my-4">
                 <button className="text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg" onClick={this.handleClick}>
                   申請する
