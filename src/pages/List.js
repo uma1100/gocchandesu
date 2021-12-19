@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactModal from 'react-modal';
 import { FaLink } from 'react-icons/fa'
 import Modal from "react-modal";
 import axios from "axios";
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 Modal.setAppElement("#root");
 
@@ -20,6 +21,7 @@ export default class List extends React.Component {
       user_data: [],
       group_data: [],
       total_point: 0,
+      successShare: false,
     };
 
     this.handleOpenModal = this.handleOpenModal.bind(this);
@@ -116,10 +118,16 @@ export default class List extends React.Component {
   handleChangeName = (event) => {
     this.setState({ name: event.target.value })
   }
+  handleClickURLShare = (event) => {
+    this.setState({ successShare: true })
+  }
   render() {
     let listAge = []
     for (let i = 20; i <= 60; i++) {
       listAge.push(<option value={i}>{i}</option>)
+      setTimeout(function () {
+        this.setState({ successShare: false })
+      }.bind(this), 3000)
     }
     let userData = [];
     this.state.user_data.map((item) => {
@@ -128,7 +136,7 @@ export default class List extends React.Component {
           <div className="pl-3 pr-10 mt-1">
             <h3 className="font-normal leading-4 text-gray-800 text-base">{item.name}</h3>
             <div className="flex items-end mt-4">
-              <h2 className="text-gray-800 text-2xl leading-normal font-bold">{this.comma(Math.round(this.state.group_data.total * (item.point/this.state.total_point)))}円</h2>
+              <h2 className="text-gray-800 text-2xl leading-normal font-bold">{this.comma(Math.round(this.state.group_data.total * (item.point / this.state.total_point)))}円</h2>
             </div>
             <div className="flex mt-2 ">
               <button className="text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
@@ -220,8 +228,15 @@ export default class List extends React.Component {
               </div>
             </div>
           </ReactModal>
-          <button className=" bg-white font-semibold e py-2 px-4 border text-indigo-500 rounded-full mx-3"><FaLink /></button>
+          <CopyToClipboard
+            text={window.location.href}
+            onCopy={() => alert(`クリップボードにをコピーしました。こちらのURLをシェアしてください。`)}
+          >
+            <button className=" bg-white font-semibold e py-2 px-4 border text-indigo-500 rounded-full mx-3"><FaLink /></button>
+
+          </CopyToClipboard>
         </div>
+
       </div>
 
     );
