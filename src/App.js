@@ -145,6 +145,7 @@ export default class App extends React.Component {
         </div>
         <Link to="/create" >Invoices</Link> |{" "}
         <Link to="/join">Expenses</Link>
+        <Link to="/list">Expenses</Link>
         <Outlet />
       </div>
     );
