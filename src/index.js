@@ -6,7 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import Create from './pages/Create'
-import Join from './pages/Join'
+import List from './pages/List'
 
 
 const rootElement = document.getElementById("root");
@@ -15,7 +15,7 @@ render(
     <Routes>
       <Route path="/" element={<App />} />
       <Route path="create" element={<Create/>} />
-      <Route path="join" element={<Join />} />
+      <Route path="list" element={<List />} />
     </Routes>
   </BrowserRouter>,
   rootElement

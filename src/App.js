@@ -1,16 +1,40 @@
 import React from "react";
 import { Outlet, Link } from "react-router-dom";
+import axios from "axios";
 
 export default class App extends React.Component {
-  onSubmit(e) {
-    e.preventDefault();
-    console.log("onSubmit");
+  state = {
+    group_name: "test",
+    num: 0,
+    url_pay: "paypayURL",
+    user_name: "主催者はじめ",
+    role: "平社員",
+    age: 25,
+    gender: "男性"
+  };
+  saveUserGroup() {
+    return axios
+      .post("https://gocchandesu-back.azurewebsites.net/api/CreateGroup", {
+        group_name: this.state.group_name,
+        num: this.state.num,
+        url_pay: this.state.url_pay,
+        user_name: this.state.user_name,
+        role: this.state.role,
+        age: this.state.age,
+        gender: this.state.gender,
+      })
+      .then((res) => {
+        console.log(res)
+      })
+  }
+  handleClick = () => {
+    console.log("onSubmit")
+    this.saveUserGroup()
   }
   render() {
     return (
       <div>
         <div className="bg-gray-50 pb-10">
-          <form onSubmit={this.onSubmit}>
             <div className="max-w-7xl mx-auto py-12 text-center">
               <h2 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
                 <span className="block">ごっちゃんです</span>
@@ -20,6 +44,10 @@ export default class App extends React.Component {
                 <span className="block text-lg">30秒で作成可能！今すぐ作成しよう。</span>
               </h2>
               <div class="inline-block relative w-64">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
+                  飲み会の名前🍺
+                </label>
+                <input type="text" id="name" name="name" class="w-full bg-white rounded border mb-3 border-gray-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"></input>
                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
                   何人での飲み会ですか？
                 </label>
@@ -47,11 +75,10 @@ export default class App extends React.Component {
               </div>
             </div>
             <div className="text-center">
-              <button className="text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
+              <button className="text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg" onClick={this.handleClick}>
                 申請する
               </button>
             </div>
-          </form>
         </div>
         <Link to="/create" >Invoices</Link> |{" "}
         <Link to="/join">Expenses</Link>

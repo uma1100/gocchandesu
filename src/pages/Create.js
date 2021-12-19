@@ -1,8 +1,11 @@
+import React from "react";
 
-export default function Create() {
-  return (
-    <main style={{ padding: "1rem 0" }}>
-      <h2>Expenses</h2>
-    </main>
-  );
+export default class Create extends React.Component {
+  render(){
+    return (
+      <main style={{ padding: "1rem 0" }}>
+        <h2>Expenses</h2>
+      </main>
+    );
+  }
 }
