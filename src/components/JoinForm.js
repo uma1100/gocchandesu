@@ -5,7 +5,21 @@ export default class JoinForm extends React.Component {
     e.preventDefault();
     console.log("submit")
   }
+  handleChangeNum = (event) => {
+    this.setState({ num: event.target.value })
+    console.log(event.target.value)
+  }
+  handleChangeRole = (event) => {
+    this.setState({ role: event.target.value })
+  }
+  handleChangeAge = (event) => {
+    this.setState({ age: event.target.value })
+  }
   render() {
+    let listAge = []
+    for (let i = 20; i <= 60; i++) {
+      listAge.push(<option value={i}>{i}</option>)
+    }
     return (
       <div>
         <form onSubmit={this.saveUserData}>
@@ -15,10 +29,17 @@ export default class JoinForm extends React.Component {
             </label>
             <input type="text" id="name" name="name" class="w-full bg-white rounded border mb-3 border-gray-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"></input>
 
-            <label class="block mt-3 uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
+            <label
+              class="block mt-3 uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+              for="grid-first-name"
+            >
               あなたの役職を教えて下さい
             </label>
-            <select class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+            <select
+              class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
+              value={this.state.role}
+              onChange={this.handleChangeRole}
+            >
               <option>部長</option>
               <option>課長</option>
               <option>平社員</option>
@@ -26,10 +47,12 @@ export default class JoinForm extends React.Component {
             <label class="block mt-3 uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
               何歳ですか？
             </label>
-            <select class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
-              <option>19</option>
-              <option>20</option>
-              <option>21</option>
+            <select
+              class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
+              value={this.state.age}
+              onChange={this.handleChangeAge}
+            >
+              {listAge}
             </select>
             <label class="block mt-3 uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
               性別

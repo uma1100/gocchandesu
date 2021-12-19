@@ -1,11 +1,12 @@
 import React from "react";
 import { Outlet, Link } from "react-router-dom";
 import axios from "axios";
+import thisNumberValue from "es-abstract/2015/thisNumberValue";
 
 export default class App extends React.Component {
   state = {
-    group_name: "test",
-    num: 0,
+    group_name: "",
+    num: 3,
     url_pay: "paypayURL",
     user_name: "主催者はじめ",
     role: "平社員",
@@ -27,7 +28,8 @@ export default class App extends React.Component {
         total: this.state.total,
       })
       .then((res) => {
-        console.log(res)
+        console.log(res.data)
+        window.location.href = `/list?group_id=${res.data.group.id}`
       })
   }
   handleClick = () => {
@@ -37,6 +39,21 @@ export default class App extends React.Component {
   handleChangeNum = (event) => {
     this.setState({ num: event.target.value })
     console.log(event.target.value)
+  }
+  handleChangeRole = (event) => {
+    this.setState({ role: event.target.value })
+  }
+  handleChangeAge = (event) => {
+    this.setState({ age: event.target.value })
+  }
+  handleChangeGroupName = (event) => {
+    this.setState({ group_name: event.target.value })
+  }
+  handleChangeUserName = (event) => {
+    this.setState({ user_name: event.target.value })
+  }
+  handleChangeBudget = (event) => {
+    this.setState({ total: event.target.value })
   }
   render() {
     let listNum = []
@@ -59,10 +76,14 @@ export default class App extends React.Component {
               <span className="block text-lg">30秒で作成可能！今すぐ作成しよう。</span>
             </h2>
             <div class="inline-block relative w-64">
-              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name" value={this.state.group_name}>
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name"
+              >
                 飲み会の名前🍺
               </label>
-              <input type="text" id="name" name="name" class="w-full bg-white rounded border mb-3 border-gray-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"></input>
+              <input type="text" id="name" name="name" class="w-full bg-white rounded border mb-3 border-gray-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                value={this.state.group_name}
+                onChange={this.handleChangeGroupName}
+              ></input>
               <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
                 何人での飲み会ですか？
               </label>
@@ -73,10 +94,22 @@ export default class App extends React.Component {
               >
                 {listNum}
               </select>
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold my-2" for="grid-first-name"
+              >
+                あなたの名前
+              </label>
+              <input type="text" id="name" name="name" class="w-full bg-white rounded border mb-3 border-gray-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                value={this.state.user_name}
+                onChange={this.handleChangeUserName}
+              ></input>
               <label class="block mt-3 uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
                 あなたの役職を教えて下さい
               </label>
-              <select class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+              <select
+                class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
+                value={this.state.role}
+                onChange={this.handleChangeRole}
+              >
                 <option>部長</option>
                 <option>課長</option>
                 <option>平社員</option>
@@ -84,9 +117,25 @@ export default class App extends React.Component {
               <label class="block mt-3 uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
                 何歳ですか？
               </label>
-              <select class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
+              <select
+                class="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
+                value={this.state.age}
+                onChange={this.handleChangeAge}
+              >
                 {listAge}
               </select>
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold my-2" for="grid-first-name"
+              >
+                予算は？
+              </label>
+              <input
+                type="number"
+                id="name"
+                name="name"
+                class="w-full bg-white rounded border mb-3 border-gray-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                value={this.state.total}
+                onChange={this.handleChangeBudget}
+              ></input>
             </div>
           </div>
           <div className="text-center">
