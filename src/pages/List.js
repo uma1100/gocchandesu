@@ -1,5 +1,4 @@
-import render from "dom-serializer";
-import React, { useState } from "react";
+import React from "react";
 import ReactModal from 'react-modal';
 import { FaLink } from 'react-icons/fa'
 import Modal from "react-modal";
