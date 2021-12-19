@@ -19,6 +19,7 @@ export default class List extends React.Component {
       gender: "男性",
       user_data: [],
       group_data: [],
+      total_point: 0,
     };
 
     this.handleOpenModal = this.handleOpenModal.bind(this);
@@ -55,7 +56,6 @@ export default class List extends React.Component {
   }
 
   saveUser() {
-    console.log(this.state)
     return axios
       .post("https://gocchandesu-back.azurewebsites.net/api/CreateUser", {
         group_id: this.state.group_id,
@@ -75,6 +75,11 @@ export default class List extends React.Component {
       .then((res) => {
         console.log(res.data)
         this.setState({ user_data: res.data })
+        let total_point = 0
+        res.data.map((item) => {
+          total_point += item.point
+        })
+        this.setState({ total_point: total_point })
       })
   }
 
@@ -123,7 +128,7 @@ export default class List extends React.Component {
           <div className="pl-3 pr-10 mt-1">
             <h3 className="font-normal leading-4 text-gray-800 text-base">{item.name}</h3>
             <div className="flex items-end mt-4">
-              <h2 className="text-gray-800 text-2xl leading-normal font-bold">value円</h2>
+              <h2 className="text-gray-800 text-2xl leading-normal font-bold">{this.comma(Math.round(this.state.group_data.total * (item.point/this.state.total_point)))}円</h2>
             </div>
             <div className="flex mt-2 ">
               <button className="text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
@@ -159,13 +164,13 @@ export default class List extends React.Component {
                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-1" for="grid-first-name">
                   名前
                 </label>
-                <input 
-                type="text"
-                id="name"
-                name="name"
-                class="w-full bg-white rounded border mb-3 border-gray-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-                value={this.state.name}
-                onChange={this.handleChangeName}
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  class="w-full bg-white rounded border mb-3 border-gray-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                  value={this.state.name}
+                  onChange={this.handleChangeName}
                 >
                 </input>
 
